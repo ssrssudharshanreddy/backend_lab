@@ -124,10 +124,6 @@ http://localhost:3000/
 - Nodemon automatically restarts the server when changes are made.
 - The database is updated after POST, PUT and DELETE operations.
 
-## Deployment
-
-Live link: Not deployed. The application is tested locally.
-
 ## Conclusion
 
 Successfully connected an Express server to a SQLite database and implemented five CRUD operations. Tested the API endpoints and verified database changes.

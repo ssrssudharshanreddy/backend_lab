@@ -39,7 +39,7 @@ app.get('/books/', async (request, response) => {
   response.status(200).send(books)
 })
 
-// GET a particular book
+
 app.get('/books/:bookId/', async (request, response) => {
   const { bookId } = request.params
 
