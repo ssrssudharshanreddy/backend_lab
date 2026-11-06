@@ -14,7 +14,7 @@
 | **Course** | Backend Development Fundamentals (Year II Term II) |
 | **Module** | Introduction to Node.js Runtime & Express.js Web Framework |
 | **Content Week** | Week 1 (Slots 1–6) |
-| **Faculty** | Mr. Joel Prashanth D |
+| **Faculty** | Mr Yugandhar Gurjalwar |
 | **Institution** | Aurora Deemed-to-be-University |
 | **GitHub Repository** | [https://github.com/ssrssudharshanreddy/backend_lab](https://github.com/ssrssudharshanreddy/backend_lab) |
 | **Repository Path** | `lab-01/` in course GitHub repository |

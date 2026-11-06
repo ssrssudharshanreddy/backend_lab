@@ -89,7 +89,7 @@ app.get('/', (request, response) => {
       name: 'SOMULA SUDHARSHAN REDDY',
       registrationNumber: '252U1R1231',
       section: 'CSE-CORE-2E',
-      faculty: 'Mr. Joel Prashanth D',
+      faculty: 'Mr Yugandhar Gurjalwar',
       college: 'Aurora Deemed-to-be-University'
     },
     status: 'Online',
