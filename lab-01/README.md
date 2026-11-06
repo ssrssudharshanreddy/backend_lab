@@ -11,9 +11,7 @@
 | **Student Name** | SOMULA SUDHARSHAN REDDY |
 | **Registration Number** | 252U1R1231 |
 | **Section** | CSE-CORE-2E |
-| **Course** | Backend Development Fundamentals (Year II Term II) |
-| **Module** | Introduction to Node.js Runtime & Express.js Web Framework |
-| **Content Week** | Week 1 (Slots 1–6) |
+| **Course** | Backend Development Fundamentals |
 | **Faculty** | Mr Yugandhar Gurjalwar |
 | **Institution** | Aurora Deemed-to-be-University |
 | **GitHub Repository** | [https://github.com/ssrssudharshanreddy/backend_lab](https://github.com/ssrssudharshanreddy/backend_lab) |

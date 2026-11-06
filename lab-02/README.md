@@ -11,9 +11,7 @@
 | **Student Name** | SOMULA SUDHARSHAN REDDY |
 | **Registration Number** | 252U1R1231 |
 | **Section** | CSE-CORE-2E |
-| **Course** | Backend Development Fundamentals (Year II Term II) |
-| **Module** | Embedded Relational Databases & RESTful CRUD Operations |
-| **Content Week** | Week 2 (Slots 7–12) |
+| **Course** | Backend Development Fundamentals |
 | **Faculty** | Mr Yugandhar Gurjalwar |
 | **Institution** | Aurora Deemed-to-be-University |
 | **GitHub Repository** | [https://github.com/ssrssudharshanreddy/backend_lab](https://github.com/ssrssudharshanreddy/backend_lab) |
