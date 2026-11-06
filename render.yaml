@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: backend-lab-03-sudharshan
+    env: node
+    rootDir: lab-03
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000

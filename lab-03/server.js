@@ -2,6 +2,7 @@ const express = require('express')
 const sqlite3 = require('sqlite3')
 const {open} = require('sqlite')
 const path = require('path')
+const fs = require('fs')
 
 const app = express()
 app.use(express.json())
@@ -33,19 +34,74 @@ const parseIntegerQuery = (value, defaultValue, name, minimum) => {
 
 const initializeDBAndServer = async () => {
   try {
+    const dbDir = path.dirname(dbPath)
+    if (!fs.existsSync(dbDir)) {
+      fs.mkdirSync(dbDir, {recursive: true})
+    }
+
     db = await open({
       filename: dbPath,
       driver: sqlite3.Database
     })
 
-    app.listen(process.env.PORT || 3000, () => {
-      console.log(`Server Running at http://localhost:${process.env.PORT || 3000}/`)
+    await db.exec(`
+      CREATE TABLE IF NOT EXISTS book (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        author TEXT,
+        price INTEGER,
+        pages INTEGER
+      );
+    `)
+
+    const countRow = await db.get('SELECT COUNT(*) as count FROM book;')
+    if (countRow.count === 0) {
+      await db.exec(`
+        INSERT INTO book (title, author, price, pages) VALUES
+        ('Wings of Fire', 'A.P.J. Abdul Kalam', 250, 180),
+        ('The Alchemist', 'Paulo Coelho', 300, 200),
+        ('Atomic Habits', 'James Clear', 450, 320),
+        ('Rich Dad Poor Dad', 'Robert Kiyosaki', 350, 240),
+        ('Ikigai', 'Hector Garcia', 280, 190),
+        ('Think and Grow Rich', 'Napoleon Hill', 320, 250),
+        ('Deep Work', 'Cal Newport', 400, 280),
+        ('The Power of Habit', 'Charles Duhigg', 380, 300),
+        ('Zero to One', 'Peter Thiel', 290, 210),
+        ('The Psychology of Money', 'Morgan Housel', 350, 250);
+      `)
+    }
+
+    const port = process.env.PORT || 3000
+    app.listen(port, () => {
+      console.log(`Server Running at http://localhost:${port}/`)
     })
   } catch (error) {
     console.error(`DB Error: ${error.message}`)
     process.exit(1)
   }
 }
+
+// GET / root endpoint with API directory & student metadata
+app.get('/', (request, response) => {
+  response.status(200).json({
+    message: 'Lab 3: REST API, Query Parameters, Validation, and Debugging',
+    student: {
+      name: 'SOMULA SUDHARSHAN REDDY',
+      registrationNumber: '252U1R1231',
+      section: 'CSE-CORE-2E',
+      faculty: 'Mr. Joel Prashanth D',
+      college: 'Aurora Deemed-to-be-University'
+    },
+    status: 'Online',
+    endpoints: {
+      getAllBooks: 'GET /books',
+      getBookById: 'GET /books/:bookId',
+      createBook: 'POST /books',
+      updateBook: 'PUT /books/:bookId',
+      deleteBook: 'DELETE /books/:bookId'
+    }
+  })
+})
 
 // GET /books with title search, sorting, pagination and price range
 app.get('/books', async (request, response) => {

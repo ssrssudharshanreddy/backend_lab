@@ -152,6 +152,7 @@ All resource endpoints adhere to REST conventions: resources are named as plural
 
 | HTTP Method | Path | Description | Success Code | Error Codes |
 |:---:|---|---|:---:|:---:|
+| `GET` | `/` | API Directory, student metadata & system status | `200 OK` | `500` |
 | `GET` | `/books` | Retrieve books with optional search, sorting, pagination, and price filters | `200 OK` | `400`, `500` |
 | `GET` | `/books/:bookId` | Retrieve a single book record by ID | `200 OK` | `400`, `404`, `500` |
 | `POST` | `/books` | Validate payload and insert a new book record | `201 Created` | `400`, `500` |
@@ -379,58 +380,67 @@ SELECT id, title FROM book WHERE id = 10;
 
 ## 📸 Screenshots Directory & Evidence
 
-Screenshots are placed in the [`screenshots/`](screenshots/) directory and document all required functional outputs, validations, and debugging fixes:
+All verification screenshots are captured directly from actual execution and saved in the [`screenshots/`](screenshots/) directory:
 
-### 1. GET All Books (Default)
-![GET All Books](screenshots/01-get-all-books.png)
+### 1. SQLite Database CLI Verification
+Inspects the SQLite `book` table with formatted columns and headers:
+![SQLite CLI Verification](screenshots/01-sqlite-cli-verification.png)
 
-### 2. Search Query Parameter (`GET /books?search_q=Habit`)
-![Search Query](screenshots/02-search-query.png)
+### 2. Express Server Startup with Nodemon
+Displays Nodemon listening and running on `http://localhost:3000/`:
+![Server Startup](screenshots/02-server-start-nodemon.png)
 
-### 3. Sorting by Price Ascending (`GET /books?order_by=price&order=ASC`)
-![Sorting by Price](screenshots/03-sorting-price.png)
+### 3. Partial Title Search (`GET /books?search_q=fire`)
+Filters books whose titles match `fire`:
+![Search Query](screenshots/03-search-query.png)
 
-### 4. Pagination (`GET /books?limit=3&offset=3`)
-![Pagination](screenshots/04-pagination.png)
+### 4. Sorting by Price Descending (`GET /books?order_by=price&order=DESC`)
+Orders books in descending price order:
+![Sorting by Price](screenshots/04-sorting-price-desc.png)
 
-### 5. Price Range Filter (`GET /books?min_price=300&max_price=400`)
-![Price Filter](screenshots/05-price-filter.png)
+### 5. Pagination with Limit & Offset (`GET /books?limit=2&offset=5`)
+Retrieves 2 records starting after skipping 5 records:
+![Pagination](screenshots/05-pagination-limit-offset.png)
 
-### 6. Combined Search, Sort & Filter
-![Combined Filters](screenshots/06-combined-filters.png)
+### 6. Price Range Filter (`GET /books?min_price=250&max_price=400`)
+Filters records within the inclusive price range of ₹250 to ₹400:
+![Price Filter](screenshots/06-price-range-filter.png)
 
-### 7. GET Single Book by ID (`GET /books/1`)
-![GET Book by ID](screenshots/07-get-book-by-id.png)
+### 7. POST Create Valid Book (`201 Created`)
+Inserts a new book record and returns the assigned `bookId`:
+![POST Create Book](screenshots/07-post-create-book.png)
 
-### 8. POST Create Book (`201 Created`)
-![POST Create Book](screenshots/08-post-book.png)
+### 8. GET Missing Book (`404 Not Found` on `/books/99999`)
+Verifies proper error handling when a requested book ID does not exist:
+![GET Missing Book 404](screenshots/08-get-missing-book-404.png)
 
-### 9. POST Validation Error (`400 Bad Request`)
-![POST Validation Error](screenshots/09-post-validation-error.png)
+### 9. PUT Update Valid Book (`200 OK` on `/books/1`)
+Updates book details and confirms with `200 OK`:
+![PUT Update Book](screenshots/09-put-update-book.png)
 
-### 10. PUT Update Book (`200 OK`)
-![PUT Update Book](screenshots/10-put-book.png)
+### 10. PUT Missing Book (`404 Not Found` on `/books/99999`)
+Confirms `404 Not Found` when attempting to update a non-existent record:
+![PUT Missing Book 404](screenshots/10-put-missing-book-404.png)
 
-### 11. DELETE Book (`200 OK`)
+### 11. DELETE Book (`200 OK` on `/books/10`)
+Deletes an existing book record from the database:
 ![DELETE Book](screenshots/11-delete-book.png)
 
-### 12. 404 Not Found for Non-Existent ID (`GET /books/999`)
-![404 Not Found ID](screenshots/12-not-found-id.png)
+### 12. DELETE Missing Book (`404 Not Found` on `/books/99999`)
+Confirms `404 Not Found` when attempting to delete a non-existent record:
+![DELETE Missing Book 404](screenshots/12-delete-missing-book-404.png)
 
-### 13. SQLite CLI Verification (Database State)
-![SQLite CLI Verification](screenshots/13-sqlite-cli.png)
+### 13. Project Structure & Explorer View
+Shows complete project organization in the editor:
+![Project Structure](screenshots/13-project-structure.png)
 
-### 14. Debugging Bug 1: Port Conflict (`EADDRINUSE`)
-![Debug EADDRINUSE](screenshots/14-debug-eaddrinuse.png)
+### 14. REST Client Test Suite (`lab-03.http`)
+Displays the complete suite of tests configured in the HTTP client:
+![REST Client Test Suite](screenshots/14-test-suite-http.png)
 
-### 15. Debugging Bug 2: Wrong Import Path (`MODULE_NOT_FOUND`)
-![Debug Import Path](screenshots/15-debug-import-path.png)
-
-### 16. Debugging Bug 3: Table-Name Typo (`no such table: books`)
-![Debug Table Typo](screenshots/16-debug-table-typo.png)
-
-### 17. Debugging Bug 4: Missing `await` on Database Call
-![Debug Missing Await](screenshots/17-debug-missing-await.png)
+### 15. Server Source Code Implementation (`server.js`)
+Shows clean REST routing, validation logic, and SQLite database connectivity:
+![Server Code](screenshots/15-server-code.png)
 
 ---
 
