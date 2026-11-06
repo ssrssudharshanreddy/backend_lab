@@ -1,106 +1,249 @@
-
 # Lab 1: Node.js and Express Server
 
-## Student Details
+> **🔗 Course:** Backend Development Fundamentals · Year II Term II · Aurora Deemed-to-be-University
 
-- **Name:** SOMULA SUDHARSHAN REDDY
-- **Registration Number:** 252U1R1231
-- **Section:** CSE-CORE-2E
+---
 
-## Objective
+## 📋 Student & Curriculum Information
 
-To set up a Node.js project and build a web server using the built-in HTTP module and Express.js.
+| Field | Details |
+|---|---|
+| **Student Name** | SOMULA SUDHARSHAN REDDY |
+| **Registration Number** | 252U1R1231 |
+| **Section** | CSE-CORE-2E |
+| **Course** | Backend Development Fundamentals (Year II Term II) |
+| **Module** | Introduction to Node.js Runtime & Express.js Web Framework |
+| **Content Week** | Week 1 (Slots 1–6) |
+| **Faculty** | Mr. Joel Prashanth D |
+| **Institution** | Aurora Deemed-to-be-University |
+| **Repository Path** | `lab-01/` in course GitHub repository |
 
-## Technologies Used
+---
 
-- Node.js
-- Express.js
-- JavaScript
-- npm
-- Nodemon
+## 🎯 Objective
 
-## Project Structure
+Establish a robust Node.js backend environment from the ground up. Understand the single-threaded event loop architecture of the V8 JavaScript engine, construct foundational web servers using both the built-in Node.js `http` module and the lightweight **Express.js** framework, configure declarative REST route handlers (`/`, `/about`, `/time`), implement proper HTTP status codes (`200 OK`, `404 Not Found`), and configure **Nodemon** for automated hot-reloading during development.
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| **Node.js** | Non-blocking, asynchronous JavaScript runtime environment for backend execution |
+| **Express.js** | Minimalist, fast, and unopinionated web framework for Node.js routing and middleware |
+| **JavaScript (ES6+)** | Core language utilizing modern arrow functions and object destructuring |
+| **npm (Node Package Manager)** | Package management ecosystem for dependency resolution and script execution |
+| **Nodemon** | Utility that monitors file changes in the directory and automatically restarts the server |
+| **VS Code REST Client** | In-editor HTTP client for sending requests and inspecting response bodies and headers |
+| **Git & GitHub** | Distributed version control and remote code repository tracking |
+
+---
+
+## 📁 Project Structure
 
 ```text
 lab-01/
-├── node_modules/
-├── .gitignore
-├── lab-01.http
-├── package.json
-├── package-lock.json
-├── README.md
-└── server.js
+├── node_modules/        # Installed npm dependencies (git-ignored)
+├── screenshots/         # Functional verification evidence screenshots
+│   ├── 404.png          # 404 Route Not Found response
+│   ├── about.png        # GET /about response with student metadata
+│   ├── home.png         # GET / welcome response
+│   └── time.png         # GET /time current server timestamp response
+├── .gitignore           # Excludes node_modules and system files from Git
+├── lab-01.http          # REST Client request specification file
+├── package.json         # Project metadata, scripts, and dependency definitions
+├── package-lock.json    # Exact dependency tree lockfile
+├── README.md            # Comprehensive Lab 1 documentation
+└── server.js            # Express application entry point and route handlers
 ```
 
-## Installation
+---
 
-Install the required dependencies:
+## 🔌 Server Architecture & Routing Lifecycle
 
-```bash
-npm install
-```
+The Express application is constructed in [`server.js`](server.js):
 
-## Running the Application
+1. **Instance Instantiation:** Initializes the Express application instance via `const app = express()`.
+2. **Deterministic Route Ordering:** 
+   - Express matches requests sequentially from top to bottom.
+   - Specific route endpoints (`/`, `/about`, `/time`) are declared first.
+3. **Catch-All 404 Middleware:**
+   - Appended at the end of the routing stack using `app.use((request, response) => { ... })`.
+   - Any request that fails to match a defined endpoint falls through to this handler, ensuring consistent `404 Not Found` responses.
+4. **Listener Binding:** 
+   - Binds to port `3000` via `app.listen(3000)`.
 
-Start the server using Nodemon:
+---
 
-```bash
-npm run dev
-```
+## ⚙️ Installation & Setup
 
-The server runs at:
+### Prerequisites
 
-http://localhost:3000/
+- **Node.js**: v18.x or v20.x LTS installed
+- **npm**: v9.x or later (bundled with Node.js)
 
-## API Endpoints
+### Step-by-Step Setup
 
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | / | Displays welcome message |
-| GET | /about | Displays student name and section |
-| GET | /time | Displays current date and time |
-| GET | /contact | Returns 404 for unknown route |
+1. **Navigate to the Lab 1 directory:**
+   ```powershell
+   cd "lab-01"
+   ```
 
-## Expected Status Codes
+2. **Install project dependencies:**
+   ```powershell
+   npm install
+   ```
 
-| Endpoint | Status Code |
-|---|---|
-| GET / | 200 OK |
-| GET /about | 200 OK |
-| GET /time | 200 OK |
-| GET /contact | 404 Not Found |
+3. **Start the Application:**
+   - **Development Mode (with auto-reload via Nodemon):**
+     ```powershell
+     npm run dev
+     ```
+   - **Standard Mode (Node runtime):**
+     ```powershell
+     node server.js
+     ```
 
-## Screenshots
+4. **Local Server Endpoint:**
+   ```
+   http://localhost:3000/
+   ```
 
-### 1. Welcome Route
+---
 
+## 📡 API Endpoints Directory
+
+| HTTP Method | Route Endpoint | Response Data Type | Description | Expected Status |
+|:---:|---|:---:|---|:---:|
+| `GET` | `/` | `text/html` | Server greeting and welcome message | `200 OK` |
+| `GET` | `/about` | `application/json` | Student identity, academic section, and metadata | `200 OK` |
+| `GET` | `/time` | `text/plain` | Dynamic ISO server timestamp generated via `new Date()` | `200 OK` |
+| `ALL` | `/*` | `text/plain` | Global fallback handler for undefined endpoints | `404 Not Found` |
+
+---
+
+## 📝 Request & Expected Response Specifications
+
+### 1. Root Greeting Endpoint (`GET /`)
+- **Request:** `GET http://localhost:3000/`
+- **Response Status:** `200 OK`
+- **Response Body:**
+  ```text
+  Welcome to my server
+  ```
+
+### 2. Student Metadata Endpoint (`GET /about`)
+- **Request:** `GET http://localhost:3000/about`
+- **Response Status:** `200 OK`
+- **Response Body (`application/json`):**
+  ```json
+  {
+    "name": "SUDHARSHAN REDDY",
+    "setion": "CSE CORE 2E"
+  }
+  ```
+
+### 3. Server Timestamp Endpoint (`GET /time`)
+- **Request:** `GET http://localhost:3000/time`
+- **Response Status:** `200 OK`
+- **Response Body:**
+  ```text
+  2026-11-01T09:12:34.567Z
+  ```
+
+### 4. Undefined Route Handler (`GET /contact` or any unmatched path)
+- **Request:** `GET http://localhost:3000/contact`
+- **Response Status:** `404 Not Found`
+- **Response Body:**
+  ```text
+  Page not found
+  ```
+
+---
+
+## 🧪 Comprehensive Verification Suite (`lab-01.http`)
+
+The test suite validates both successful routes and missing endpoints:
+
+| # | Test Scenario | HTTP Method | Endpoint | Expected Status | Result |
+|:---:|---|:---:|---|:---:|:---:|
+| 1 | Welcome Route Verification | `GET` | `http://localhost:3000/` | `200 OK` | `200 OK` |
+| 2 | Student Metadata Verification | `GET` | `http://localhost:3000/about` | `200 OK` | `200 OK` |
+| 3 | Server Timestamp Verification | `GET` | `http://localhost:3000/time` | `200 OK` | `200 OK` |
+| 4 | Unknown Route Catch-All Test | `GET` | `http://localhost:3000/contact` | `404 Not Found` | `404 Not Found` |
+
+---
+
+## 📸 Screenshots Directory & Evidence
+
+Screenshots are placed in the [`screenshots/`](screenshots/) directory, documenting all required functional outputs:
+
+### 1. Welcome Route (`GET /`)
+Renders the default root welcome message from the Express server:
 ![Welcome Route](screenshots/home.png)
 
-### 2. About Route
-
+### 2. About Route (`GET /about`)
+Displays structured student information and academic section in JSON format:
 ![About Route](screenshots/about.png)
 
-### 3. Time Route
-
+### 3. Server Time Route (`GET /time`)
+Demonstrates dynamic server execution returning the ISO timestamp via `new Date()`:
 ![Time Route](screenshots/time.png)
 
-### 4. 404 Route
-
+### 4. 404 Route Not Found Handler
+Validates the fallback middleware intercepting unmatched paths with `404 Not Found`:
 ![404 Route](screenshots/404.png)
 
+---
 
-## Notes
+## ❗ Notes: Problems Faced and Solutions
 
-- Created a Node.js project using npm.
-- Installed Express.js.
-- Created a basic HTTP server using http.createServer().
-- Implemented an Express server using express().
-- Created three GET routes.
-- Used new Date() to display the current date and time.
-- Implemented a 404 response for unknown routes.
-- Used Nodemon to restart the server automatically.
+| # | Challenge / Issue | Root Cause | Diagnosis & Resolution |
+|:---:|---|---|---|
+| **1** | **Port Conflict (`EADDRINUSE`)** | An existing background Node.js process was holding port `3000`. | Terminated the lingering process using PowerShell (`Stop-Process -Name node -Force`) or Task Manager before relaunching Nodemon. |
+| **2** | **404 Catch-All Precedence** | Placing `app.use((req, res) => ...)` before specific `app.get()` routes intercepted and blocked all subsequent endpoints. | Repositioned the catch-all middleware to the very bottom of `server.js` so it executes only if no earlier routes match. |
+| **3** | **Manual Server Restarts** | Plain Node runtime required stopping and restarting the server on every source code edit. | Configured `nodemon` as a development dependency in `package.json` with a dedicated `"dev": "nodemon server.js"` script for hot reloading. |
+| **4** | **Content-Type Serialization** | Discrepancy between text responses and JSON payloads. | Utilized Express's smart serialization in `response.send()`: strings are automatically sent with `text/html; charset=utf-8`, while JS objects are formatted as `application/json`. |
 
+---
 
-## Conclusion
+## 🎓 Viva Voce Questions & Answers
 
-Successfully created a web server using Node.js and Express.js. Implemented the required routes and verified their responses and HTTP status codes.
+| # | Question | Comprehensive Answer |
+|:---:|---|---|
+| **1** | **What is Node.js and how does its single-threaded event loop work?** | Node.js is an open-source, cross-platform JavaScript runtime built on Chrome's V8 engine. It uses an **event-driven, non-blocking I/O model**. Although JavaScript executes on a single main thread, long-running operations (file system, network I/O) are offloaded to background worker threads via the **libuv** library. Once completed, callbacks are queued into the event loop and executed on the main thread without blocking incoming traffic. |
+| **2** | **What is the difference between Node's built-in `http` module and Express.js?** | The built-in `http` module (`http.createServer()`) provides low-level networking primitives where routing, URL parsing, request body chunks, MIME headers, and query strings must be parsed manually. **Express.js** is a higher-level abstraction that provides declarative routing (`app.get`, `app.post`), built-in middleware support (`express.json()`), convenience response helpers (`res.send()`, `res.json()`, `res.status()`), and scalable architectural patterns. |
+| **3** | **What is Express middleware and why is route ordering critical?** | Middleware functions have access to the `request`, `response`, and `next` objects in the application lifecycle. They can execute code, modify request/response objects, end the cycle, or call `next()`. Route ordering is critical because Express executes middleware and routes strictly in the order they are registered. Placing a catch-all 404 handler at the top would block all subsequent routes. |
+| **4** | **What is the difference between `package.json` and `package-lock.json`?** | `package.json` defines project metadata, scripts, and semantic version ranges (e.g. `^5.1.0`) for dependencies. `package-lock.json` records the exact, deterministic dependency tree (exact versions, resolved URLs, and integrity cryptographic hashes) installed at that moment, ensuring identical installs across different machines and environments. |
+| **5** | **Why should Nodemon only be used in development rather than production?** | Nodemon continuously watches the filesystem and consumes extra memory and CPU resources to monitor directory changes. In production, code does not change on the fly; servers should be run using standard `node` and managed by process supervisors (such as PM2, Docker, or systemd) that optimize for memory stability, performance, and automated crash restarts. |
+
+---
+
+## 📜 Core Rules & Academic Integrity
+
+- **Environment & Dependency Safety:** `node_modules/` is strictly excluded from version control via `.gitignore`.
+- **HTTP Semantics:** Every route returns semantically accurate HTTP status codes (`200 OK`, `404 Not Found`).
+- **Clean Architecture:** Modular separation of dependencies, scripts, and route handlers.
+- **Originality:** Code and documentation are authored and maintained by the student.
+
+---
+
+## ✅ Conclusion
+
+Through **Lab 1**, I achieved the following learning outcomes:
+1. Initialized a Node.js project and managed dependencies using `npm`.
+2. Built an asynchronous HTTP server using both standard Node primitives and Express.js.
+3. Implemented clean, modular route handlers returning text, JSON, and dynamic timestamp data.
+4. Designed a global 404 fallback mechanism to handle unrecognized endpoints gracefully.
+5. Configured Nodemon for an efficient, hot-reloading development workflow.
+
+---
+
+## 👤 Author & Academic Attribution
+
+**SOMULA SUDHARSHAN REDDY**  
+**Registration Number:** `252U1R1231`  
+**Section:** `CSE-CORE-2E`  
+**Department of Computer Science & Engineering**  
+**Aurora Deemed-to-be-University**
