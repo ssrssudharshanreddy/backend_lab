@@ -1,6 +1,6 @@
 # Lab 3: REST API, Query Parameters, Validation, and Debugging
 
-> **🔗 Live Deployment URL:** [https://backend-lab-03-sudharshan.onrender.com](https://backend-lab-03-sudharshan.onrender.com) *(or local server at `http://localhost:3000`)*
+> **🔗 Live Deployment URL:** [https://backend-lab-lab-03.onrender.com](https://backend-lab-lab-03.onrender.com) *(or local server at `http://localhost:3000`)*
 
 ---
 
@@ -150,15 +150,15 @@ The server implements asynchronous lifecycle startup via `initializeDBAndServer(
 
 All resource endpoints adhere to REST conventions: resources are named as plural nouns (`/books`), and HTTP methods communicate the operation to perform.
 
-| HTTP Method | Path | Description | Success Code | Error Codes |
-|:---:|---|---|:---:|:---:|
-| `GET` | `/` | API Directory, student metadata & system status | `200 OK` | `500` |
-| `GET` | `/books` | Retrieve books with optional search, sorting, pagination, and price filters | `200 OK` | `400`, `500` |
-| `GET` | `/books/:bookId` | Retrieve a single book record by ID | `200 OK` | `400`, `404`, `500` |
-| `POST` | `/books` | Validate payload and insert a new book record | `201 Created` | `400`, `500` |
-| `PUT` | `/books/:bookId` | Validate payload and update an existing book by ID | `200 OK` | `400`, `404`, `500` |
-| `DELETE` | `/books/:bookId` | Delete an existing book by ID | `200 OK` | `400`, `404`, `500` |
-| `ALL` | `/*` | Fallback route handler for undefined endpoints | — | `404 Not Found` |
+| HTTP Method | Path | Live URL | Description | Success Code | Error Codes |
+|:---:|---|:---:|---|:---:|:---:|
+| `GET` | `/` | [Open Live Link](https://backend-lab-lab-03.onrender.com/) | API Directory, student metadata & system status | `200 OK` | `500` |
+| `GET` | `/books` | [Open Live Link](https://backend-lab-lab-03.onrender.com/books) | Retrieve books with optional search, sorting, pagination, and price filters | `200 OK` | `400`, `500` |
+| `GET` | `/books/:bookId` | [Open Live Link (ID 1)](https://backend-lab-lab-lab-03.onrender.com/books/1) | Retrieve a single book record by ID | `200 OK` | `400`, `404`, `500` |
+| `POST` | `/books` | [API Endpoint](https://backend-lab-lab-03.onrender.com/books) | Validate payload and insert a new book record | `201 Created` | `400`, `500` |
+| `PUT` | `/books/:bookId` | [API Endpoint (ID 1)](https://backend-lab-lab-03.onrender.com/books/1) | Validate payload and update an existing book by ID | `200 OK` | `400`, `404`, `500` |
+| `DELETE` | `/books/:bookId` | [API Endpoint (ID 10)](https://backend-lab-lab-03.onrender.com/books/10) | Delete an existing book by ID | `200 OK` | `400`, `404`, `500` |
+| `ALL` | `/*` | [Open Live Link (404 Test)](https://backend-lab-lab-03.onrender.com/books/99999) | Fallback route handler for undefined endpoints | — | `404 Not Found` |
 
 ---
 
@@ -390,44 +390,59 @@ Inspects the SQLite `book` table with formatted columns and headers:
 Displays Nodemon listening and running on `http://localhost:3000/`:
 ![Server Startup](screenshots/02-server-start-nodemon.png)
 
-### 3. Partial Title Search (`GET /books?search_q=fire`)
-Filters books whose titles match `fire`:
+### 3. Search Query Parameter (`GET /books?search_q=fire`)
+- **Render Live URL:** [https://backend-lab-lab-03.onrender.com/books?search_q=fire](https://backend-lab-lab-03.onrender.com/books?search_q=fire)
+- **Expected HTTP Status:** `200 OK`
+
 ![Search Query](screenshots/03-search-query.png)
 
 ### 4. Sorting by Price Descending (`GET /books?order_by=price&order=DESC`)
-Orders books in descending price order:
+- **Render Live URL:** [https://backend-lab-lab-03.onrender.com/books?order_by=price&order=DESC](https://backend-lab-lab-03.onrender.com/books?order_by=price&order=DESC)
+- **Expected HTTP Status:** `200 OK`
+
 ![Sorting by Price](screenshots/04-sorting-price-desc.png)
 
 ### 5. Pagination with Limit & Offset (`GET /books?limit=2&offset=5`)
-Retrieves 2 records starting after skipping 5 records:
+- **Render Live URL:** [https://backend-lab-lab-03.onrender.com/books?limit=2&offset=5](https://backend-lab-lab-03.onrender.com/books?limit=2&offset=5)
+- **Expected HTTP Status:** `200 OK`
+
 ![Pagination](screenshots/05-pagination-limit-offset.png)
 
 ### 6. Price Range Filter (`GET /books?min_price=250&max_price=400`)
-Filters records within the inclusive price range of ₹250 to ₹400:
+- **Render Live URL:** [https://backend-lab-lab-03.onrender.com/books?min_price=250&max_price=400](https://backend-lab-lab-03.onrender.com/books?min_price=250&max_price=400)
+- **Expected HTTP Status:** `200 OK`
+
 ![Price Filter](screenshots/06-price-range-filter.png)
 
 ### 7. POST Create Valid Book (`201 Created`)
-Inserts a new book record and returns the assigned `bookId`:
+- **Expected HTTP Status:** `201 Created`
+
 ![POST Create Book](screenshots/07-post-create-book.png)
 
 ### 8. GET Missing Book (`404 Not Found` on `/books/99999`)
-Verifies proper error handling when a requested book ID does not exist:
+- **Render Live URL:** [https://backend-lab-lab-03.onrender.com/books/99999](https://backend-lab-lab-03.onrender.com/books/99999)
+- **Expected HTTP Status:** `404 Not Found`
+
 ![GET Missing Book 404](screenshots/08-get-missing-book-404.png)
 
 ### 9. PUT Update Valid Book (`200 OK` on `/books/1`)
-Updates book details and confirms with `200 OK`:
+- **Expected HTTP Status:** `200 OK`
+
 ![PUT Update Book](screenshots/09-put-update-book.png)
 
 ### 10. PUT Missing Book (`404 Not Found` on `/books/99999`)
-Confirms `404 Not Found` when attempting to update a non-existent record:
+- **Expected HTTP Status:** `404 Not Found`
+
 ![PUT Missing Book 404](screenshots/10-put-missing-book-404.png)
 
 ### 11. DELETE Book (`200 OK` on `/books/10`)
-Deletes an existing book record from the database:
+- **Expected HTTP Status:** `200 OK`
+
 ![DELETE Book](screenshots/11-delete-book.png)
 
 ### 12. DELETE Missing Book (`404 Not Found` on `/books/99999`)
-Confirms `404 Not Found` when attempting to delete a non-existent record:
+- **Expected HTTP Status:** `404 Not Found`
+
 ![DELETE Missing Book 404](screenshots/12-delete-missing-book-404.png)
 
 ### 13. Project Structure & Explorer View
@@ -458,30 +473,39 @@ As part of the lab debugging curriculum, four intentional errors were analyzed, 
 
 ---
 
-## 🚀 Deployment Runbook (Render)
+## 🚀 Deployment on Render
 
-1. **Push Repository to GitHub:**
-   Ensure all changes are staged and committed without `node_modules` or `.env`.
-   ```powershell
-   git add lab-03
-   git commit -m "Complete Lab 3: REST API with filtering, pagination, validation, and database setup"
-   git push origin main
-   ```
+### Steps to Deploy
 
-2. **Create New Web Service on Render:**
-   - Log in to [Render](https://render.com/).
-   - Click **New +** → **Web Service** → Connect your repository `backend_lab`.
+1. **Sign up** on [Render](https://render.com/) using your GitHub account.
 
-3. **Configure Service Settings:**
-   - **Name:** `backend-lab-03-sudharshan`
-   - **Root Directory:** `lab-03`
-   - **Environment:** `Node`
-   - **Build Command:** `npm install`
-   - **Start Command:** `npm start`
-   - **Environment Variable:** `PORT = 10000` (Render dynamically injects `PORT`)
+2. **Create a New Web Service:**
+   - Click **"New +"** → **"Web Service"**
+   - Connect your GitHub repository: `backend_lab`
 
-4. **Verify Live Deployment:**
-   - Visit the provided onrender URL: `https://<service-name>.onrender.com/books`
+3. **Configure the Service:**
+
+   | Setting | Value |
+   |---------|-------|
+   | **Name** | `backend-lab-lab-03` |
+   | **Root Directory** | `lab-03` |
+   | **Runtime** | `Node` |
+   | **Build Command** | `npm install` |
+   | **Start Command** | `node server.js` |
+   | **Environment Variable** | `NODE_VERSION: 20.18.0` |
+
+4. **Deploy** and wait for the build to complete.
+
+5. **Verify by visiting the deployed Render URLs:**
+   - **Main Server / Student Info:** [https://backend-lab-lab-03.onrender.com/](https://backend-lab-lab-03.onrender.com/)
+   - **GET All Books:** [https://backend-lab-lab-03.onrender.com/books](https://backend-lab-lab-03.onrender.com/books)
+   - **GET Search Title:** [https://backend-lab-lab-03.onrender.com/books?search_q=fire](https://backend-lab-lab-03.onrender.com/books?search_q=fire)
+   - **GET Sort by Price:** [https://backend-lab-lab-03.onrender.com/books?order_by=price&order=DESC](https://backend-lab-lab-03.onrender.com/books?order_by=price&order=DESC)
+   - **GET Pagination:** [https://backend-lab-lab-03.onrender.com/books?limit=2&offset=5](https://backend-lab-lab-03.onrender.com/books?limit=2&offset=5)
+   - **GET Price Filter:** [https://backend-lab-lab-03.onrender.com/books?min_price=250&max_price=400](https://backend-lab-lab-03.onrender.com/books?min_price=250&max_price=400)
+   - **GET Combined Filters:** [https://backend-lab-lab-03.onrender.com/books?search_q=The&min_price=200&max_price=400&order_by=price&order=ASC&limit=5&offset=0](https://backend-lab-lab-03.onrender.com/books?search_q=The&min_price=200&max_price=400&order_by=price&order=ASC&limit=5&offset=0)
+   - **GET Single Book (ID 1):** [https://backend-lab-lab-03.onrender.com/books/1](https://backend-lab-lab-03.onrender.com/books/1)
+   - **GET 404 Error Test (ID 999):** [https://backend-lab-lab-03.onrender.com/books/999](https://backend-lab-lab-03.onrender.com/books/999)
 
 ---
 

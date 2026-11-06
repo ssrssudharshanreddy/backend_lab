@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: backend-lab-03-sudharshan
+    name: backend-lab-lab-03
     env: node
     rootDir: lab-03
     buildCommand: npm install
