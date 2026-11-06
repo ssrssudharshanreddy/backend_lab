@@ -1,6 +1,6 @@
 # Lab 2: SQLite Database and CRUD Routes
 
-> **🔗 Course:** Backend Development Fundamentals · Year II Term II · Aurora Deemed-to-be-University
+> **🔗 Live Deployment URL:** [https://backend-lab-lab-02.onrender.com](https://backend-lab-lab-02.onrender.com) *(or local server at `http://localhost:3000`)*
 
 ---
 
@@ -16,6 +16,7 @@
 | **Content Week** | Week 2 (Slots 7–12) |
 | **Faculty** | Mr. Joel Prashanth D |
 | **Institution** | Aurora Deemed-to-be-University |
+| **GitHub Repository** | [https://github.com/ssrssudharshanreddy/backend_lab](https://github.com/ssrssudharshanreddy/backend_lab) |
 | **Repository Path** | `lab-02/` in course GitHub repository |
 
 ---
@@ -169,13 +170,13 @@ The application implements an asynchronous initialization workflow via `initiali
 
 All resource endpoints adhere to REST conventions: resources are identified as nouns (`/books/`), and HTTP verbs dictate the operation performed.
 
-| HTTP Method | Route Endpoint | Description | Success Status | Error Status |
-|:---:|---|---|:---:|:---:|
-| `GET` | `/books/` | Retrieve a list of all book records | `200 OK` | `500 Internal Error` |
-| `GET` | `/books/:bookId/` | Retrieve a single book record by ID | `200 OK` | `404 Not Found` |
-| `POST` | `/books/` | Create and insert a new book record | `201 Created` | `500 Internal Error` |
-| `PUT` | `/books/:bookId/` | Update all attributes of an existing book record by ID | `200 OK` | `404 Not Found` |
-| `DELETE` | `/books/:bookId/` | Remove an existing book record by ID | `200 OK` | `404 Not Found` |
+| HTTP Method | Route Endpoint | Live URL | Description | Success Status | Error Status |
+|:---:|---|:---:|---|:---:|:---:|
+| `GET` | `/books/` | [Open Live Link](https://backend-lab-lab-02.onrender.com/books/) | Retrieve a list of all book records | `200 OK` | `500 Internal Error` |
+| `GET` | `/books/:bookId/` | [Open Live Link (ID 1)](https://backend-lab-lab-02.onrender.com/books/1/) | Retrieve a single book record by ID | `200 OK` | `404 Not Found` |
+| `POST` | `/books/` | [API Endpoint](https://backend-lab-lab-02.onrender.com/books/) | Create and insert a new book record | `201 Created` | `500 Internal Error` |
+| `PUT` | `/books/:bookId/` | [API Endpoint (ID 1)](https://backend-lab-lab-02.onrender.com/books/1/) | Update all attributes of an existing book record by ID | `200 OK` | `404 Not Found` |
+| `DELETE` | `/books/:bookId/` | [API Endpoint (ID 1)](https://backend-lab-lab-02.onrender.com/books/1/) | Remove an existing book record by ID | `200 OK` | `404 Not Found` |
 
 ---
 
@@ -339,28 +340,72 @@ SELECT id, title FROM book WHERE id = 1;
 Screenshots are placed in the [`screenshots/`](screenshots/) directory, documenting all required functional outputs and database verifications:
 
 ### 1. SQLite Database CLI Verification
+- **Expected Status:** `Database State Verified`
+
 Direct inspection of the `bookStore.db` database file and table records:
 ![Database Verification](screenshots/database.png)
 
 ### 2. GET All Books (`GET /books/`)
+- **Render Live URL:** [https://backend-lab-lab-02.onrender.com/books/](https://backend-lab-lab-02.onrender.com/books/)
+- **Expected HTTP Status:** `200 OK`
+
 Retrieves the complete array of book records from the database with `200 OK`:
 ![GET All Books](screenshots/get-all-books.png)
 
 ### 3. GET Book by ID (`GET /books/:bookId/`)
+- **Render Live URL:** [https://backend-lab-lab-02.onrender.com/books/1/](https://backend-lab-lab-02.onrender.com/books/1/)
+- **Expected HTTP Status:** `200 OK`
+
 Retrieves a single book object by primary key with `200 OK`:
 ![GET Book by ID](screenshots/get-book-by-id.png)
 
 ### 4. POST Create Book (`POST /books/`)
+- **Expected HTTP Status:** `201 Created`
+
 Inserts a new book record, returning `201 Created` along with the generated `lastID`:
 ![POST Create Book](screenshots/post-book.png)
 
 ### 5. PUT Update Book (`PUT /books/:bookId/`)
+- **Expected HTTP Status:** `200 OK`
+
 Updates existing record fields and confirms success with `200 OK`:
 ![PUT Update Book](screenshots/put-book.png)
 
 ### 6. DELETE Book (`DELETE /books/:bookId/`)
+- **Expected HTTP Status:** `200 OK`
+
 Deletes an existing record by ID and confirms removal with `200 OK`:
 ![DELETE Book](screenshots/delete-book.png)
+
+---
+
+## 🚀 Deployment on Render
+
+### Steps to Deploy
+
+1. **Sign up** on [Render](https://render.com/) using your GitHub account.
+
+2. **Create a New Web Service:**
+   - Click **"New +"** → **"Web Service"**
+   - Connect your GitHub repository: `backend_lab`
+
+3. **Configure the Service:**
+
+   | Setting | Value |
+   |---------|-------|
+   | **Name** | `backend-lab-lab-02` |
+   | **Root Directory** | `lab-02` |
+   | **Runtime** | `Node` |
+   | **Build Command** | `npm install` |
+   | **Start Command** | `node server.js` |
+   | **Environment Variable** | `NODE_VERSION: 20.18.0` |
+
+4. **Deploy** and wait for the build to complete.
+
+5. **Verify by visiting the deployed Render URLs:**
+   - **GET All Books:** [https://backend-lab-lab-02.onrender.com/books/](https://backend-lab-lab-02.onrender.com/books/)
+   - **GET Single Book (ID 1):** [https://backend-lab-lab-02.onrender.com/books/1/](https://backend-lab-lab-02.onrender.com/books/1/)
+   - **GET 404 Error Test (ID 999):** [https://backend-lab-lab-02.onrender.com/books/999/](https://backend-lab-lab-02.onrender.com/books/999/)
 
 ---
 
