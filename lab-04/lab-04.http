@@ -1,9 +1,9 @@
-### 1. Register a new user (201)
+6### 1. Register a new user (201)
 POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-  "username": "sudharshan",
+  "username": "sudharshan_reddy",
   "name": "Sudharshan Reddy",
   "password": "pass123"
 }
@@ -13,7 +13,7 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-  "username": "sudharshan",
+  "username": "sudharshan_reddy",
   "name": "Sudharshan Reddy",
   "password": "pass123"
 }
@@ -23,7 +23,7 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "username": "sudharshan",
+  "username": "sudharshan_reddy",
   "password": "pass123"
 }
 
@@ -41,7 +41,7 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "username": "sudharshan",
+  "username": "sudharshan_reddy",
   "password": "wrong123"
 }
 
