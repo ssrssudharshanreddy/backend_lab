@@ -147,14 +147,14 @@ The application implements an asynchronous lifecycle startup routine via `initia
 
 ## 📡 API Endpoints Directory
 
-| Method | Endpoint | Description | Request Body Format | Success Status | Error Status |
-|:---:|---|---|:---:|:---:|:---:|
-| **GET** | `/` | API status and student verification | None | `200 OK` | — |
-| **GET** | `/register` | Registration endpoint info & sample payload format | None | `200 OK` | — |
-| **POST** | `/register` | Register new user with hashed password | JSON (`username`, `name`, `password`) | `201 Created` | `400 Bad Request`, `500 Error` |
-| **GET** | `/login` | Login endpoint info & sample payload format | None | `200 OK` | — |
-| **POST** | `/login` | Authenticate user credentials and issue signed JWT | JSON (`username`, `password`) | `200 OK` | `400 Bad Request`, `500 Error` |
-| **ALL** | `/*` | Catch-all handler for undefined paths | Any | — | `404 Not Found` |
+| Method | Endpoint | Live Render Link | Description | Success Status | Error Status |
+|:---:|---|:---:|---|:---:|:---:|
+| **GET** | `/` | [Open Live Link](https://backend-lab-lab-04.onrender.com/) | API status and student verification | `200 OK` | — |
+| **GET** | `/register` | [Open Live Link](https://backend-lab-lab-04.onrender.com/register) | Registration endpoint info & sample payload format | `200 OK` | — |
+| **POST** | `/register` | [API Endpoint](https://backend-lab-lab-04.onrender.com/register) | Register new user with hashed password | `201 Created` | `400 Bad Request`, `500 Error` |
+| **GET** | `/login` | [Open Live Link](https://backend-lab-lab-04.onrender.com/login) | Login endpoint info & sample payload format | `200 OK` | — |
+| **POST** | `/login` | [API Endpoint](https://backend-lab-lab-04.onrender.com/login) | Authenticate user credentials and issue signed JWT | `200 OK` | `400 Bad Request`, `500 Error` |
+| **ALL** | `/*` | [Open Live Link (404 Test)](https://backend-lab-lab-04.onrender.com/notfound) | Catch-all handler for undefined paths | — | `404 Not Found` |
 
 ---
 
@@ -417,34 +417,56 @@ id  username    name              password
 All verification screenshots captured during testing are stored in the [`screenshots/`](screenshots/) directory:
 
 ### 1. Express Server Startup with Nodemon
+- **Local Server Endpoint:** `http://localhost:3000/`
+- **Render Live URL:** [https://backend-lab-lab-04.onrender.com/](https://backend-lab-lab-04.onrender.com/)
+
 Shows Nodemon starting the server cleanly on port 3000 and logging database connectivity:
 ![Server Startup](screenshots/01-server-start-nodemon.png)
 
 ### 2. Successful User Registration (`POST /register` -> `201 Created`)
+- **Render Endpoint:** `https://backend-lab-lab-04.onrender.com/register`
+- **Expected HTTP Status:** `201 Created`
+
 Demonstrates registering a new user with `username`, `name`, and `password`:
 ![User Registration Success](screenshots/02-register-user-success.png)
 
 ### 3. Duplicate Username Rejection (`POST /register` -> `400 Bad Request`)
+- **Render Endpoint:** `https://backend-lab-lab-04.onrender.com/register`
+- **Expected HTTP Status:** `400 Bad Request`
+
 Demonstrates rejection of a username that already exists in the database:
 ![Duplicate Registration 400](screenshots/03-register-duplicate-user-400.png)
 
 ### 4. Successful User Login & JWT Generation (`POST /login` -> `200 OK`)
+- **Render Endpoint:** `https://backend-lab-lab-04.onrender.com/login`
+- **Expected HTTP Status:** `200 OK`
+
 Demonstrates authenticating valid credentials and returning a signed `{ jwt_token }`:
 ![Login Success JWT](screenshots/04-login-user-success-jwt.png)
 
 ### 5. Invalid Username Rejection (`POST /login` -> `400 Bad Request`)
+- **Render Endpoint:** `https://backend-lab-lab-04.onrender.com/login`
+- **Expected HTTP Status:** `400 Bad Request`
+
 Demonstrates login rejection when the username does not exist:
 ![Invalid Username 400](screenshots/05-login-invalid-username-400.png)
 
 ### 6. Invalid Password Rejection (`POST /login` -> `400 Bad Request`)
+- **Render Endpoint:** `https://backend-lab-lab-04.onrender.com/login`
+- **Expected HTTP Status:** `400 Bad Request`
+
 Demonstrates login rejection when the provided password fails `bcrypt.compare`:
 ![Invalid Password 400](screenshots/06-login-invalid-password-400.png)
 
 ### 7. SQLite CLI Database Inspection
+- **Inspection Command:** `npm run db`
+
 Displays the `user` table proving passwords are stored strictly as bcrypt hashes:
 ![SQLite CLI Table](screenshots/07-sqlite-cli-users-table.png)
 
 ### 8. JWT Token Decoding on jwt.io
+- **Verification Portal:** [https://jwt.io](https://jwt.io)
+
 Displays the token decoded into Header, Payload (`{ username }`), and verified Signature:
 ![JWT.io Inspection](screenshots/08-jwt-io-token-inspection.png)
 
@@ -495,8 +517,10 @@ Shows the production Express.js implementation with 0 comments and structured er
 
 5. **Verify by visiting the deployed Render URLs:**
    - **Main Server / Student Info:** [https://backend-lab-lab-04.onrender.com/](https://backend-lab-lab-04.onrender.com/)
-   - **User Registration (`POST /register`):** `https://backend-lab-lab-04.onrender.com/register`
-   - **User Login & Token Generation (`POST /login`):** `https://backend-lab-lab-04.onrender.com/login`
+   - **GET Register Info:** [https://backend-lab-lab-04.onrender.com/register](https://backend-lab-lab-04.onrender.com/register)
+   - **GET Login Info:** [https://backend-lab-lab-04.onrender.com/login](https://backend-lab-lab-04.onrender.com/login)
+   - **POST User Registration:** `https://backend-lab-lab-04.onrender.com/register`
+   - **POST User Login & Token Generation:** `https://backend-lab-lab-04.onrender.com/login`
    - **404 Route Not Found Test:** [https://backend-lab-lab-04.onrender.com/notfound](https://backend-lab-lab-04.onrender.com/notfound)
 
 ---
