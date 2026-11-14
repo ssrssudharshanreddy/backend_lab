@@ -8,18 +8,17 @@
     "dev": "nodemon server.js",
     "db": "node -e \"const {open}=require('sqlite'),sqlite3=require('sqlite3');(async()=>{const db=await open({filename:'database/users.db',driver:sqlite3.Database});console.table(await db.all('SELECT id, username, name, password FROM user;'));})()\""
   },
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "sqlite": "^5.1.1",
-    "sqlite3": "^6.0.1"
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
-  },
-  "allowScripts": {
-    "sqlite3@6.0.1": true,
-    "bcrypt@5.1.1": true
   }
 }
