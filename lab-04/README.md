@@ -149,8 +149,10 @@ The application implements an asynchronous lifecycle startup routine via `initia
 
 | Method | Endpoint | Description | Request Body Format | Success Status | Error Status |
 |:---:|---|---|:---:|:---:|:---:|
-| **GET** | `/` | API status and welcome verification | None | `200 OK` | — |
+| **GET** | `/` | API status and student verification | None | `200 OK` | — |
+| **GET** | `/register` | Registration endpoint info & sample payload format | None | `200 OK` | — |
 | **POST** | `/register` | Register new user with hashed password | JSON (`username`, `name`, `password`) | `201 Created` | `400 Bad Request`, `500 Error` |
+| **GET** | `/login` | Login endpoint info & sample payload format | None | `200 OK` | — |
 | **POST** | `/login` | Authenticate user credentials and issue signed JWT | JSON (`username`, `password`) | `200 OK` | `400 Bad Request`, `500 Error` |
 | **ALL** | `/*` | Catch-all handler for undefined paths | Any | — | `404 Not Found` |
 

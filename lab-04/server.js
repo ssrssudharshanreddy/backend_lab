@@ -62,6 +62,19 @@ app.get('/', (request, response) => {
   })
 })
 
+app.get('/register', (request, response) => {
+  response.status(200).json({
+    message: 'Register endpoint is active. Send a POST request with JSON body to register a user.',
+    method: 'POST',
+    endpoint: '/register',
+    sampleRequestBody: {
+      username: 'sudharshan',
+      name: 'Sudharshan Reddy',
+      password: 'pass123'
+    }
+  })
+})
+
 app.post('/register', async (request, response) => {
   try {
     const {username, name, password} = request.body
@@ -85,6 +98,18 @@ app.post('/register', async (request, response) => {
   } catch (error) {
     response.status(500).send('Unable to register user')
   }
+})
+
+app.get('/login', (request, response) => {
+  response.status(200).json({
+    message: 'Login endpoint is active. Send a POST request with JSON body to login and receive a JWT token.',
+    method: 'POST',
+    endpoint: '/login',
+    sampleRequestBody: {
+      username: 'sudharshan',
+      password: 'pass123'
+    }
+  })
 })
 
 app.post('/login', async (request, response) => {
